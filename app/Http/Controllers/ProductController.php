@@ -82,4 +82,33 @@ class ProductController extends Controller
         return Product::where('name','like','%'.$name.'%')->get();
 
     }
+
+    public function searchVariants($variant)
+    {
+        return Product::where('variant','like','%'.$variant.'%')->get();
+
+    }
+
+    public function updateVariants(Request $request, $id)
+    {
+        
+        $product = Product::find($id);
+        $product->variant = $request->variant;
+        $product->save();
+        return $product;
+    }
+
+    public function addVariants(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
+
+    }
+
+    public function searchViaVariantID($variantID)
+    {
+        return Product::where('variantID','like',$variantID)->get();
+
+    }
 }
