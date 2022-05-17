@@ -40,10 +40,14 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/products')->group(function () {
     Route::get('/search/{name}', [ProductController::class, 'search']);
     Route::get('/', [ProductController::class, 'index']);
-    Route::post('/{id}', [ProductController::class, 'show']);
     Route::post('/', [ProductController::class, 'store']);
-    Route::delete('/{id}', [ProductController::class, 'destroy']);
-    Route::put('/{id}', [ProductController::class, 'update']);
+});
+// products group
+
+Route::prefix('/products/{id}')->group(function () {
+    Route::post('/', [ProductController::class, 'show']);
+    Route::delete('/', [ProductController::class, 'destroy']);
+    Route::put('/', [ProductController::class, 'update']);
 });
 
 // products variants group
@@ -54,7 +58,6 @@ Route::prefix('/variants')->group(function(){
 });
 
 // Product variants ID group
-
 Route::prefix('/variants/{id}')->group(function(){
     Route::put('/', [VariantController::class, 'update']);
     Route::delete('/', [VariantController::class, 'destroy']);
