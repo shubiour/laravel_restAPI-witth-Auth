@@ -50,8 +50,13 @@ Route::prefix('/products')->group(function () {
 Route::prefix('/variants')->group(function(){
     Route::get('/', [VariantController::class, 'index']);
     Route::post('/add',[VariantController::class, 'store']);
-    Route::put('/{id}', [VariantController::class, 'update']);
-    Route::delete('/{id}', [VariantController::class, 'destroy']);
-    Route::post('/{id}', [VariantController::class, 'show']);
     Route::get('/search/{name}', [VariantController::class, 'search']);
+});
+
+// Product variants ID group
+
+Route::prefix('/variants/{id}')->group(function(){
+    Route::put('/', [VariantController::class, 'update']);
+    Route::delete('/', [VariantController::class, 'destroy']);
+    Route::post('/', [VariantController::class, 'show']);
 });
