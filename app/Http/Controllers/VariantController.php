@@ -1,24 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Product;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 
-use function GuzzleHttp\Promise\all;
-
-class ProductController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Product::all();
-    }
-
-    /**
+class VariantController extends Controller
+{   
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -28,14 +16,21 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required',
-            'price' =>'required'
         ]);
-        return Product::create($request->all());
+        return Variant::create($request->all());
 
     }
 
-    /**
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return Variant::all();
+    }
+        /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -43,7 +38,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
+        return Variant::find($id);
     }
 
     /**
@@ -55,7 +50,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = Variant::find($id);
         $product->update($request->all());
         return $product;
     }
@@ -68,7 +63,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return Product::destroy($id);
+        return Variant::destroy($id);
 
     }
     /**
@@ -79,7 +74,7 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::where('name','like','%'.$name.'%')->get();
+        return Variant::where('name','like','%'.$name.'%')->get();
 
     }
 }

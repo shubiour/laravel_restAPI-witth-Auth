@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VariantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,12 +47,11 @@ Route::prefix('/products')->group(function () {
 });
 
 // products variants group
-Route::prefix('/products/variants')->group(function(){
-    Route::get('/search/{variant}', [ProductController::class, 'searchVariants']);
-    Route::put('/add/{id}',[ProductController::class, 'addVariants']); // not updating the null values
-    Route::patch('/update/{id}', [ProductController::class, 'updateVariants']);
-});
-// products variantsID group
-Route::prefix('/products/variants/{variantID}')->group(function(){
-    Route::get('/', [ProductController::class, 'searchViaVariantID']);
+Route::prefix('/variants')->group(function(){
+    Route::get('/', [VariantController::class, 'index']);
+    Route::post('/add',[VariantController::class, 'store']);
+    Route::put('/{id}', [VariantController::class, 'update']);
+    Route::delete('/{id}', [VariantController::class, 'destroy']);
+    Route::post('/{id}', [VariantController::class, 'show']);
+    Route::get('/search/{name}', [VariantController::class, 'search']);
 });
